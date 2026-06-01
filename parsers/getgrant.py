@@ -12,16 +12,19 @@ def get_grants():
         timeout=30
     )
 
-    print(response.status_code)
-    print(response.text[:1000])
-
     soup = BeautifulSoup(response.text, "html.parser")
+
+    grants = []
 
     for title in soup.find_all():
 
         text = title.get_text(strip=True)
 
-        if len(text) > 30:
-            print(text[:100])
+        if len(text) > 50:
+            grants.append(text)
 
-    return []
+    grants = list(set(grants))
+
+    print(f"GETGRANT знайдено: {len(grants)}")
+
+    return grants
