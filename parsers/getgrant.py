@@ -17,13 +17,11 @@ def get_grants():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    grants = []
+    for title in soup.find_all():
 
-  for title in soup.find_all():
+        text = title.get_text(strip=True)
 
-    text = title.get_text(strip=True)
+        if len(text) > 30:
+            print(text[:100])
 
-    if len(text) > 30:
-        print(text[:100])
-
-return []
+    return []
