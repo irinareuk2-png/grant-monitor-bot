@@ -12,7 +12,10 @@ def get_grants():
         timeout=30
     )
 
-    soup = BeautifulSoup(response.text, "html.parser")
+  print(response.status_code)
+  print(response.text[:1000])
+
+  soup = BeautifulSoup(response.text, "html.parser")
 
     grants = []
 
