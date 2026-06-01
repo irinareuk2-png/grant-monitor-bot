@@ -26,7 +26,7 @@ def get_grants():
     ):
         grants.append(text)
 
-    grants = list(set(grants))
+   grants = sorted(list(set(grants)))
 
     print(f"GETGRANT знайдено: {len(grants)}")
 
