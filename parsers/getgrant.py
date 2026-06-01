@@ -19,7 +19,11 @@ def get_grants():
 
     grants = []
 
-    for title in soup.find_all(["h2", "h3"]):
+   for title in soup.find_all():
+    text = title.get_text(strip=True)
+
+    if len(text) > 30:
+        print(text[:100])
 
         text = title.get_text(strip=True)
 
