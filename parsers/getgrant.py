@@ -16,12 +16,12 @@ def get_grants():
 
     grants = []
 
-    for title in soup.find_all(["h2", "h3"]):
+    for title in soup.find_all():
 
-        text = title.get_text(" ", strip=True)
+    text = title.get_text(" ", strip=True)
 
-        if len(text) > 20 and "access_time" not in text:
-            grants.append(text)
+    if "access_time" in text:
+        print(text[:200])
 
     grants = sorted(list(set(grants)))
 
