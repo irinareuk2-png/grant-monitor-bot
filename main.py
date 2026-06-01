@@ -1,43 +1,50 @@
 import os
 import requests
-from bs4 import BeautifulSoup
+
+from grant_parser import get_grants
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-URL = "https://getgrant.ua/grants-and-funding/"
+current_grants = get_grants()
 
-headers = {
-    "User-Agent": "Mozilla/5.0"
-}
+try:
+    with open("seen.txt", "r", encoding="utf-8") as f:
+        seen = set(line.strip() for line in f if line.strip())
+except FileNotFoundError:
+    seen = set()
 
-response = requests.get(URL, headers=headers, timeout=30)
-response.raise_for_status()
+new_grants = []
 
-soup = BeautifulSoup(response.text, "html.parser")
+for grant in current_grants:
+    if grant not in seen:
+        new_grants.append(grant)
 
-titles = soup.find_all(["h2", "h3"])
+if new_grants:
 
-message = "📢 Нові грантові можливості (GetGrant)\n\n"
+    message = "🆕 Нові грантові можливості (GetGrant)\n\n"
 
-found = set()
+    for grant in new_grants:
+        message += f"• {grant}\n"
 
-for title in titles:
-    text = title.get_text(strip=True)
+    requests.post(
+        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+        data={
+            "chat_id": CHAT_ID,
+            "text": message
+        }
+    )
 
-    if len(text) > 20 and text not in found:
-        found.add(text)
-        message += f"🔹 {text}\n"
+    with open("seen.txt", "a", encoding="utf-8") as f:
+        for grant in new_grants:
+            f.write(grant + "\n")
 
-        if len(found) >= 15:
-            break
+else:
 
-telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-
-requests.post(
-    telegram_url,
-    data={
-        "chat_id": CHAT_ID,
-        "text": message[:4000]
-    }
-)
+    requests.post(
+        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+        data={
+            "chat_id": CHAT_ID,
+            "text": "✅ Сьогодні нових можливостей не знайдено"
+        }
+    )
