@@ -24,6 +24,7 @@ def get_grants():
             grants.append(text)
 
     print("GETGRANT:")
-print(grants)
-print(f"Знайдено: {len(grants)}")
-return list(set(grants))
+    print(grants)
+    print(f"Знайдено: {len(grants)}")
+
+    return sorted(set(grants))
