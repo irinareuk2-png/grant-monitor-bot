@@ -23,4 +23,7 @@ def get_grants():
         if len(text) > 20:
             grants.append(text)
 
-    return list(set(grants))
+    print("GETGRANT:")
+print(grants)
+print(f"Знайдено: {len(grants)}")
+return list(set(grants))
