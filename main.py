@@ -4,42 +4,20 @@ import requests
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-message = """
-📢 Щоденний моніторинг грантів та конкурсів
+with open("sources.txt", "r", encoding="utf-8") as f:
+sources = [line.strip() for line in f if line.strip()]
 
-Перевірити:
+message = "📢 Щоденний моніторинг грантів, конкурсів та стипендій\n\n"
 
-🔹 House of Europe
-https://houseofeurope.org.ua/opportunities
-
-🔹 ГУРТ
-https://gurt.org.ua/news/grants/
-
-🔹 Єднання
-https://ednannia.ua/granty
-
-🔹 УФСІ
-https://ucf.in.ua
-
-🔹 Creative Europe
-https://creativeeurope.in.ua
-
-🔹 UNDP Ukraine
-https://www.undp.org/uk/ukraine
-
-🔹 IWM
-https://www.iwm.at
-
-🔹 Інститут масової інформації
-https://imi.org.ua
-"""
+for url in sources:
+message += f"🔹 {url}\n"
 
 url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 requests.post(
-    url,
-    data={
-        "chat_id": CHAT_ID,
-        "text": message
-    }
+url,
+data={
+"chat_id": CHAT_ID,
+"text": message
+}
 )
