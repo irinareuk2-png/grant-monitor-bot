@@ -18,9 +18,9 @@ def get_grants():
 
     for title in soup.find_all():
 
-    text = title.get_text(" ", strip=True)
+        text = title.get_text(" ", strip=True)
 
-    if "access_time" in text:
+        if "access_time" in text:
         print(text[:200])
 
     grants = sorted(list(set(grants)))
