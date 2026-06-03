@@ -148,8 +148,14 @@ def get_grants():
         if title in seen_titles:
             continue
 
-        seen_titles.add(title)
+        if "/grants-and-funding-tag/" in link["href"]:
+            continue
 
+        if "/grants-and-funding-category/" in link["href"]:
+            continue
+       
+        seen_titles.add(title)
+       
         grants.append({
             "title": title,
             "url": link["href"],
