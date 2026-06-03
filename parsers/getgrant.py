@@ -55,7 +55,14 @@ def get_grants():
     
     grants = []
     
-    for title in soup.find_all():
+   for link in soup.find_all("a", href=True):
+
+    text = link.get_text(" ", strip=True)
+
+    if len(text) > 30:
+        print(text)
+        print(link["href"])
+        print("-----")
     
         text = title.get_text(" ", strip=True)
     
