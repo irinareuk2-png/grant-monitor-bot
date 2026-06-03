@@ -89,7 +89,3 @@ grants = sorted(set(grants))
 print(f"GETGRANT знайдено: {len(grants)}")
 
 return grants
-```
-
-```
-```
