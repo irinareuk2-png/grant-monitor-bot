@@ -1,7 +1,7 @@
 import os
 import requests
 
-from parsers.getgrant import get_grants
+from parsers.bosch import get_bosch
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -34,7 +34,10 @@ def save_seen(data):
             f.write(item + "\n")
 
 
-current = set(get_grants())
+current = set()
+
+current.update(get_grants())
+current.update(get_bosch())
 
 seen = load_seen()
 
