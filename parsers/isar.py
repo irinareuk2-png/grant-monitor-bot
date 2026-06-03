@@ -17,6 +17,7 @@ def get_isar():
 
     grants = []
 
+    seen_titles = set()
     seen_urls = set()
 
     for a in soup.find_all("a", href=True):
