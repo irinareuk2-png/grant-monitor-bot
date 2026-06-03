@@ -1,24 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_bosch():
 
-```
-url = "https://www.bosch-stiftung.de/en/news/open-calls"
+    url = "https://www.bosch-stiftung.de/en/news/open-calls"
 
-response = requests.get(
-    url,
-    headers={"User-Agent": "Mozilla/5.0"},
-    timeout=30
-)
+    response = requests.get(
+        url,
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=30
+    )
 
-soup = BeautifulSoup(response.text, "html.parser")
+    soup = BeautifulSoup(response.text, "html.parser")
 
-items = []
+    items = []
 
-text = soup.get_text(" ", strip=True)
+    text = soup.get_text(" ", strip=True)
 
-if "There are currently no open calls" not in text:
-    items.append("Новий конкурс на Bosch Foundation")
+    if "There are currently no open calls" not in text:
+        items.append("Bosch Foundation: новий відкритий конкурс")
 
-return items
+    return items
