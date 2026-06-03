@@ -1,3 +1,71 @@
+import requests
+from bs4 import BeautifulSoup
+
+
+ALLOW_KEYWORDS = {
+    "МЕДІА": [
+        "медіа",
+        "журналіст",
+        "EED",
+        "IREX",
+        "демократ"
+    ],
+
+    "NGO": [
+        "ГО",
+        "ОГС",
+        "громадянськ",
+        "Єднання",
+        "організаці",
+        "інституційн"
+    ],
+
+    "ГРОМАДИ": [
+        "громад",
+        "відновлення",
+        "SECO"
+    ]
+}
+
+
+BLOCK_KEYWORDS = [
+    "бізнес",
+    "startup",
+    "стартап",
+    "агро",
+    "фермер",
+    "Horizon",
+    "Erasmus",
+    "COST",
+    "лазер",
+    "robot",
+    "AI",
+    "дрон",
+    "водень",
+    "ветеран",
+    "стипендія",
+    "науков",
+    "дослід",
+    "culture helps solidarity",
+    "тисячовесна",
+    "life 2026"
+]
+
+
+def get_category(title):
+
+    title_lower = title.lower()
+
+    for category, keywords in ALLOW_KEYWORDS.items():
+
+        for keyword in keywords:
+
+            if keyword.lower() in title_lower:
+                return category
+
+    return None
+
+
 def get_grants():
 
     url = "https://getgrant.ua/grants-and-funding/"
@@ -12,37 +80,35 @@ def get_grants():
 
     grants = []
 
-    for title in soup.find_all():
+    seen_titles = set()
 
-        text = title.get_text(" ", strip=True)
+    for link in soup.find_all("a", href=True):
 
-        if "access_time" not in text:
+        title = link.get_text(" ", strip=True)
+
+        if len(title) < 15:
             continue
 
-        grant_title = text.split("access_time")[0].strip()
+        title_lower = title.lower()
 
-        if len(grant_title) < 15:
+        if any(word.lower() in title_lower for word in BLOCK_KEYWORDS):
             continue
 
-        title_lower = grant_title.lower()
+        category = get_category(title)
 
-        if "getgrant service" in title_lower:
+        if not category:
             continue
 
-        allowed = any(
-            keyword.lower() in title_lower
-            for keyword in ALLOW_KEYWORDS
-        )
+        if title in seen_titles:
+            continue
 
-        blocked = any(
-            keyword.lower() in title_lower
-            for keyword in BLOCK_KEYWORDS
-        )
+        seen_titles.add(title)
 
-        if allowed and not blocked:
-            grants.append(grant_title)
-
-    grants = sorted(set(grants))
+        grants.append({
+            "title": title,
+            "url": link["href"],
+            "category": category
+        })
 
     print(f"GETGRANT знайдено: {len(grants)}")
 
