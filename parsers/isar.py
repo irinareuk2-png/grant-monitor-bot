@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 
 def get_isar():
 
-```
 url = "https://ednannia.ua/tryvaiut-hrantovi-konkursy"
 
 response = requests.get(
@@ -27,5 +26,4 @@ for a in soup.find_all("a", href=True):
         print("-----")
 
 return []
-```
 
