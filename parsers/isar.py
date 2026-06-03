@@ -18,7 +18,7 @@ def get_isar():
     grants = []
 
     seen_titles = set()
-    
+
     for a in soup.find_all("a", href=True):
     
         title = a.get_text(" ", strip=True)
@@ -34,7 +34,11 @@ def get_isar():
            continue
 
         seen_titles.add(title)
-    
+
+        print(title)
+        print(href)
+        print("-----")
+
         grants.append({
             "title": title,
             "url": "https://ednannia.ua" + href,
