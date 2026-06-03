@@ -2,55 +2,40 @@ import os
 import requests
 
 from parsers.getgrant import get_grants
-from parsers.bosch import get_bosch
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
 
-def load_seen():
+grants = get_grants()
 
-    try:
+if grants:
 
-        with open("seen.txt", "r", encoding="utf-8") as f:
+    message = "🆕 Нові можливості\n\n"
 
-            return set(
-                line.strip()
-                for line in f
-                if line.strip()
+    categories = {
+        "МЕДІА": [],
+        "NGO": [],
+        "ГРОМАДИ": []
+    }
+
+    for item in grants:
+        categories[item["category"]].append(item)
+
+    for category, items in categories.items():
+
+        if not items:
+            continue
+
+        message += f"📌 {category}\n\n"
+
+        for item in items[:10]:
+
+            message += (
+                f"• {item['title']}\n"
+                f"🔗 {item['url']}\n\n"
             )
-
-    except FileNotFoundError:
-
-        return set()
-
-
-def save_seen(data):
-
-    with open("seen.txt", "w", encoding="utf-8") as f:
-
-        for item in data:
-
-            f.write(item + "\n")
-
-
-current = set()
-
-current.update(get_grants())
-current.update(get_bosch())
-
-seen = load_seen()
-
-new_items = current - seen
-
-if new_items:
-
-    message = "🆕 Нові грантові можливості\n\n"
-
-    for item in sorted(new_items):
-
-        message += f"• {item}\n"
 
     requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
@@ -59,5 +44,3 @@ if new_items:
             "text": message[:4000]
         }
     )
-
-save_seen(current)
