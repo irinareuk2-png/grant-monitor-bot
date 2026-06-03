@@ -22,4 +22,3 @@ if "There are currently no open calls" not in text:
     items.append("Новий конкурс на Bosch Foundation")
 
 return items
-```
