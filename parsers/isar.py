@@ -14,6 +14,8 @@ def get_isar():
     print(response.status_code)
     
     soup = BeautifulSoup(response.text, "html.parser")
+
+    grants = []
     
     for a in soup.find_all("a", href=True):
     
@@ -25,6 +27,9 @@ def get_isar():
     
         if "конкурс" not in title.lower() and "грант" not in title.lower():
             continue
+
+        if not href.startswith("/"):
+            continue
     
         grants.append({
             "title": title,
@@ -32,8 +37,8 @@ def get_isar():
             "category": "NGO",
             "deadline": "Невідомо"
         })
-
-     print(f"ISAR знайдено: {len(grants)}")
+        
+    print(f"ISAR знайдено: {len(grants)}")
     
-    return []
+    return grants
 
