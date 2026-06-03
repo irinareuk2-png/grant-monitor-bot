@@ -8,13 +8,13 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 def load_seen():
 
-    try:
-        with open("seen.txt", "r", encoding="utf-8") as f:
-            return set(
-                line.strip()
-                for line in f
-                if line.strip()
-            )
+try:
+    with open("seen.txt", "r", encoding="utf-8") as f:
+        return set(
+            line.strip()
+            for line in f
+            if line.strip()
+        )
 
 except FileNotFoundError:
     return set()
@@ -76,5 +76,6 @@ requests.post(
         "text": message[:4000]
     }
 )
+
 
 save_seen(current)
