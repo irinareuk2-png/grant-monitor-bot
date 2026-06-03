@@ -8,7 +8,6 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 def load_seen():
 
-```
 try:
     with open("seen.txt", "r", encoding="utf-8") as f:
         return set(
