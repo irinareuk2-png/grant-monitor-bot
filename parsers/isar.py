@@ -17,13 +17,23 @@ def get_isar():
     
     for a in soup.find_all("a", href=True):
     
-        text = a.get_text(" ", strip=True)
+        title = a.get_text(" ", strip=True)
+        href = a["href"]
     
-        if len(text) > 20:
+        if len(title) < 15:
+            continue
     
-            print(text[:150])
-            print(a["href"])
-            print("-----")
+        if "конкурс" not in title.lower() and "грант" not in title.lower():
+            continue
+    
+        grants.append({
+            "title": title,
+            "url": "https://ednannia.ua" + href,
+            "category": "NGO",
+            "deadline": "Невідомо"
+        })
 
+     print(f"ISAR знайдено: {len(grants)}")
+    
     return []
 
