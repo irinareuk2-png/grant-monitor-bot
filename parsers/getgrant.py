@@ -1,6 +1,5 @@
 def get_grants():
 
-```
 url = "https://getgrant.ua/grants-and-funding/"
 
 response = requests.get(
@@ -46,7 +45,7 @@ grants = sorted(set(grants))
 print(f"GETGRANT знайдено: {len(grants)}")
 
 return grants
-```
+
 import requests
 from bs4 import BeautifulSoup
 
