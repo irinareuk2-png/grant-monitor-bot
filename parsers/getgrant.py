@@ -43,7 +43,6 @@ BLOCK_KEYWORDS = [
 
 def get_grants():
 
-```
 url = "https://getgrant.ua/grants-and-funding/"
 
 response = requests.get(
