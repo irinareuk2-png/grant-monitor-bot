@@ -76,6 +76,5 @@ requests.post(
         "text": message[:4000]
     }
 )
-```
 
 save_seen(current)
