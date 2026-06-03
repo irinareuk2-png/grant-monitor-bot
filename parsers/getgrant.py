@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
+import re
 
 
 ALLOW_KEYWORDS = {
@@ -83,7 +85,7 @@ BLOCK_KEYWORDS = [
     "дослід",
     "culture helps solidarity",
     "тисячовесна",
-    "life 2026"
+    "life 2026",
     "угода",
     "конфіденційність",
     "користувача",
@@ -119,7 +121,38 @@ def get_category(title):
 
     return None
 
+MONTHS = {
+    "січня": 1,
+    "лютого": 2,
+    "березня": 3,
+    "квітня": 4,
+    "травня": 5,
+    "червня": 6,
+    "липня": 7,
+    "серпня": 8,
+    "вересня": 9,
+    "жовтня": 10,
+    "листопада": 11,
+    "грудня": 12
+}
 
+
+def parse_deadline(text):
+
+    match = re.search(
+        r"(\d{1,2})\s+(січня|лютого|березня|квітня|травня|червня|липня|серпня|вересня|жовтня|листопада|грудня)\s+(\d{4})",
+        text.lower()
+    )
+
+    if not match:
+        return None
+
+    day = int(match.group(1))
+    month = MONTHS[match.group(2)]
+    year = int(match.group(3))
+
+    return datetime(year, month, day)
+    
 def get_grants():
 
     url = "https://getgrant.ua/grants-and-funding/"
@@ -137,6 +170,30 @@ def get_grants():
     seen_titles = set()
 
     for link in soup.find_all("a", href=True):
+        
+        url = link["href"]
+
+        deadline = None
+
+        try:
+        
+            page = requests.get(
+                url,
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=30
+            )
+        
+            page_soup = BeautifulSoup(
+                page.text,
+                "html.parser"
+            )
+        
+            deadline = parse_deadline(
+                page_soup.get_text(" ", strip=True)
+            )
+        
+        except Exception:
+            pass
 
         title = link.get_text(" ", strip=True)
 
@@ -150,6 +207,11 @@ def get_grants():
 
         category = get_category(title)
 
+        if deadline:
+
+            if deadline < datetime.today():
+                continue
+        
         if not category:
             continue
 
@@ -167,7 +229,12 @@ def get_grants():
         grants.append({
             "title": title,
             "url": link["href"],
-            "category": category
+            "category": category,
+            "deadline": (
+            deadline.strftime("%d.%m.%Y")
+            if deadline
+            else "Невідомо"
+            )
         })
 
     print(f"GETGRANT знайдено: {len(grants)}")
