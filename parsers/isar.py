@@ -16,20 +16,24 @@ def get_isar():
     soup = BeautifulSoup(response.text, "html.parser")
 
     grants = []
+
+    seen_titles = set()
     
     for a in soup.find_all("a", href=True):
     
         title = a.get_text(" ", strip=True)
         href = a["href"]
     
-        if len(title) < 15:
-            continue
-    
-        if "конкурс" not in title.lower() and "грант" not in title.lower():
-            continue
+        if not href.startswith("/tryvaiut-hrantovi-konkursy/"):
+           continue
 
-        if not href.startswith("/"):
-            continue
+        if len(title) < 15:
+           continue
+
+        if title in seen_titles:
+           continue
+
+        seen_titles.add(title)
     
         grants.append({
             "title": title,
