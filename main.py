@@ -1,6 +1,7 @@
 import os
 import requests
 
+from parsers.getgrant import get_grants
 from parsers.bosch import get_bosch
 
 
