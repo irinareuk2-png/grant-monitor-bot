@@ -171,6 +171,21 @@ def get_grants():
 
     for link in soup.find_all("a", href=True):
         
+        title = link.get_text(" ", strip=True)
+
+        if len(title) < 15:
+            continue
+
+        title_lower = title.lower()
+
+        if any(word.lower() in title_lower for word in BLOCK_KEYWORDS):
+            continue
+
+        category = get_category(title)
+
+        if not category:
+            continue
+
         url = link["href"]
 
         deadline = None
@@ -194,34 +209,17 @@ def get_grants():
         
         except Exception:
             pass
-
-        title = link.get_text(" ", strip=True)
-
-        if len(title) < 15:
-            continue
-
-        title_lower = title.lower()
-
-        if any(word.lower() in title_lower for word in BLOCK_KEYWORDS):
-            continue
-
-        category = get_category(title)
-
-        if deadline:
-
-            if deadline < datetime.today():
-                continue
         
-        if not category:
+        if deadline and deadline < datetime.today():
             continue
-
+        
         if title in seen_titles:
             continue
 
-        if "/grants-and-funding-tag/" in link["href"]:
+        if "/grants-and-funding-tag/" in url:
             continue
 
-        if "/grants-and-funding-category/" in link["href"]:
+        if "/grants-and-funding-category/" in url:
             continue
        
         seen_titles.add(title)
