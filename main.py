@@ -8,25 +8,22 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 def load_seen():
 
-try:
-    with open("seen.txt", "r", encoding="utf-8") as f:
-        return set(
-            line.strip()
-            for line in f
-            if line.strip()
-        )
+    try:
+        with open("seen.txt", "r", encoding="utf-8") as f:
+            return set(
+                line.strip()
+                for line in f
+                if line.strip()
+            )
 
 except FileNotFoundError:
     return set()
-```
 
 def save_seen(data):
 
-```
 with open("seen.txt", "w", encoding="utf-8") as f:
     for item in sorted(data):
         f.write(item + "\n")
-```
 
 grants = get_grants()
 
@@ -47,7 +44,6 @@ if item["url"] in new_urls
 
 if new_grants:
 
-```
 message = "🆕 Нові можливості\n\n"
 
 categories = {
