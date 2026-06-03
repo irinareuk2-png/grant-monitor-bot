@@ -77,5 +77,4 @@ requests.post(
     }
 )
 
-
 save_seen(current)
