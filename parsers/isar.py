@@ -17,13 +17,18 @@ def get_isar():
 
     grants = []
 
-    seen_titles = set()
+    seen_urls = set()
 
     for a in soup.find_all("a", href=True):
     
         title = a.get_text(" ", strip=True)
         href = a["href"]
-    
+           
+        if href in seen_urls:
+           continue
+        
+        seen_urls.add(href)
+        
         if not href.startswith("/tryvaiut-hrantovi-konkursy/"):
            continue
 
@@ -35,6 +40,12 @@ def get_isar():
 
         seen_titles.add(title)
 
+        page = requests.get(
+            "https://ednannia.ua" + href,
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=30
+        )
+        
         print(title)
         print(href)
         print("-----")
