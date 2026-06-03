@@ -8,7 +8,26 @@ ALLOW_KEYWORDS = {
         "журналіст",
         "EED",
         "IREX",
-        "демократ"
+        "редакц",
+        "newsroom",
+        "media",
+        "journalism",
+        "eed",
+        "irex",
+        "internews",
+        "інституційн",
+        "спроможн",
+        "організаційн",
+        "media sustainability",
+        "media viability",
+        "independent media",
+        "capacity building",
+        "capacity development",
+        "organizational development",
+        "institutional support",
+        "core support",
+        "operating support",
+        "operational support"
     ],
 
     "NGO": [
@@ -17,7 +36,23 @@ ALLOW_KEYWORDS = {
         "громадянськ",
         "Єднання",
         "організаці",
-        "інституційн"
+        "інституційн",
+        "ГО",
+        "ОГС",
+        "громадянськ",
+        "Єднання",
+        "організаці",
+        "інституційн",
+        "спроможн",
+        "організаційний розвиток",
+        "організаційного розвитку",
+        "capacity building",
+        "capacity development",
+        "institutional support",
+        "institutional strengthening",
+        "core support",
+        "operating support",
+        "operational support"
     ],
 
     "ГРОМАДИ": [
