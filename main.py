@@ -2,6 +2,7 @@ import os
 import requests
 
 from parsers.getgrant import get_grants
+from parsers.isar import get_isar
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
@@ -26,6 +27,9 @@ def save_seen(data):
             f.write(item + "\n")
 
 grants = get_grants()
+
+print("=== ISAR ===")
+get_isar()
 
 seen = load_seen()
 
