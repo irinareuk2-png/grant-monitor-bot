@@ -47,9 +47,7 @@ def get_isar():
             timeout=30
         )
         
-        print(f"ISAR знайдено: {len(grants)}")
-
-        grants.append({
+            grants.append({
             "title": title,
             "url": "https://ednannia.ua" + href,
             "category": "NGO",
