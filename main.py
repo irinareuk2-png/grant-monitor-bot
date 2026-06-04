@@ -28,8 +28,8 @@ def save_seen(data):
 
 grants = get_grants()
 
-print("=== ISAR ===")
-get_isar()
+grants.extend(get_grants())
+grants.extend(get_isar())
 
 seen = load_seen()
 
