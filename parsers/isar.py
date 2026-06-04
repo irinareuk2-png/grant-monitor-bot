@@ -47,9 +47,7 @@ def get_isar():
             timeout=30
         )
         
-        print(title)
-        print(href)
-        print("-----")
+        print(f"ISAR знайдено: {len(grants)}")
 
         grants.append({
             "title": title,
