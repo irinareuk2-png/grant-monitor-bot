@@ -79,6 +79,7 @@ if new_grants:
             "text": message[:4000]
         }
     )
-
+    print("=== BOSCH ===")
+    get_bosch()
 save_seen(current)
 
