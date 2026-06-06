@@ -87,12 +87,13 @@ def get_isar():
         )
 
         page_text = page_soup.get_text(" ", strip=True)
-
+        print("CHECK:", title)
         deadline = parse_deadline(page_text)
 
         if deadline and deadline < datetime.today():
            continue
 
+        print("ADD:", title)
         grants.append({
             "title": title,
             "url": "https://ednannia.ua" + href,
