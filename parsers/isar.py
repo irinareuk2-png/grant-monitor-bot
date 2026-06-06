@@ -94,7 +94,7 @@ def get_isar():
         
         if deadline and deadline < datetime.today():
            continue
-       print(f"ISAR знайдено: {len(grants)}")
+        print(f"ISAR знайдено: {len(grants)}")
         
         grants.append({
             "title": title,
