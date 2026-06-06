@@ -13,14 +13,6 @@ def get_bosch():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    for a in soup.find_all("a", href=True):
-
-        text = a.get_text(" ", strip=True)
-
-        if len(text) > 15:
-
-            print(text)
-            print(a["href"])
-            print("-----")
-
+    
+    print(response.text[:5000])
     return []
