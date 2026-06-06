@@ -32,6 +32,9 @@ grants = []
 grants.extend(get_grants())
 grants.extend(get_isar())
 
+print("=== BOSCH ===")
+get_bosch()
+
 seen = load_seen()
 
 current = set()
@@ -80,7 +83,6 @@ if new_grants:
             "text": message[:4000]
         }
     )
-    print("=== BOSCH ===")
-    get_bosch()
+   
 save_seen(current)
 
