@@ -90,12 +90,12 @@ def get_isar():
         
         deadline = parse_deadline(page_text)
         
-        print("CHECK:", title, deadline)
+       
         
         if deadline and deadline < datetime.today():
            continue
-       
-        print("ADD:", title, deadline)
+       print(f"ISAR знайдено: {len(grants)}")
+        
         grants.append({
             "title": title,
             "url": "https://ednannia.ua" + href,
