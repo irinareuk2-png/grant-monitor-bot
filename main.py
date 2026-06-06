@@ -3,6 +3,7 @@ import requests
 
 from parsers.getgrant import get_grants
 from parsers.isar import get_isar
+from parsers.bosch import get_bosch
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
