@@ -26,7 +26,7 @@ def save_seen(data):
         for item in sorted(data):
             f.write(item + "\n")
 
-grants = get_grants()
+grants = []
 
 grants.extend(get_grants())
 grants.extend(get_isar())
