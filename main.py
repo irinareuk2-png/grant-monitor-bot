@@ -31,9 +31,7 @@ grants = []
 
 grants.extend(get_grants())
 grants.extend(get_isar())
-
-print("=== BOSCH ===")
-get_bosch()
+grants.extend(get_bosch())
 
 seen = load_seen()
 
