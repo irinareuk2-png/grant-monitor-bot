@@ -89,13 +89,11 @@ def get_isar():
         page_text = page_soup.get_text(" ", strip=True)
         
         deadline = parse_deadline(page_text)
-        
-       
+             
         
         if deadline and deadline < datetime.today():
            continue
-        print(f"ISAR знайдено: {len(grants)}")
-        
+                
         grants.append({
             "title": title,
             "url": "https://ednannia.ua" + href,
