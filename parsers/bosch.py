@@ -15,6 +15,15 @@ def get_bosch():
 
     text = soup.get_text(" ", strip=True)
 
-    print(text)
+    if "There are currently no open calls" in text:
+        print("BOSCH: відкритих конкурсів немає")
+        return []
 
-    return []
+    print("BOSCH: знайдено відкритий конкурс")
+
+    return [{
+        "title": "Bosch Foundation Open Call",
+        "url": url,
+        "category": "NGO",
+        "deadline": "Невідомо"
+    }]
