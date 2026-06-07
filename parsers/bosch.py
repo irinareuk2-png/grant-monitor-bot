@@ -15,6 +15,6 @@ def get_bosch():
 
     text = soup.get_text(" ", strip=True)
 
-    print(text[:10000])
+    print(text)
 
     return []
