@@ -27,3 +27,4 @@ def get_bosch():
         "category": "NGO",
         "deadline": "Невідомо"
     }]
+
