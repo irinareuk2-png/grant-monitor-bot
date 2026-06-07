@@ -13,6 +13,8 @@ def get_bosch():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    
-    print(response.text[:5000])
+    text = soup.get_text(" ", strip=True)
+
+    print(text[:10000])
+
     return []
